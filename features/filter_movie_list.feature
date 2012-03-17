@@ -24,7 +24,7 @@ Background: movies have been added to database
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # TODO Using checkbox id
   # enter step(s) to check the 'PG' and 'R' checkboxes
-  When I check "ratings_PG"
+  Given I check "ratings_PG"
   And I check "ratings_R"
   # enter step(s) to uncheck all other checkboxes
   # TODO this is a brittle way of specifying "other"!
@@ -32,7 +32,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   And I uncheck "ratings_PG-13"
   And I uncheck "ratings_NC-17"
   # enter step to "submit" the search form on the homepage
-  And I press "Refresh"
+  When I press "Refresh"
   # enter step(s) to ensure that PG and R movies are visible
   Then I should see "The Incredibles"
   And I should see "Raiders of the Lost Ark"
