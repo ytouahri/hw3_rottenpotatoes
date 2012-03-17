@@ -29,3 +29,20 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     step %Q{I #{uncheck}check "ratings_#{rating}"}
   end
 end
+
+# Avoid having to list all ratings
+When /I (un)?check all ratings/ do |uncheck|
+  rating_list = Movie.all_ratings.join(', ')
+  step %Q{I #{uncheck}check the following ratings: #{rating_list}}
+end
+
+# Avoid having to list all movies
+Then /I should see all of the movies/ do
+  # Number of table rows
+  rows = all("table#movies > tbody > tr").length
+
+  # TODO undefined method `should' for Fixnum (NoMethodError)
+  # Fall back to using MiniTest assertion
+  #rows.should == Movie.count
+  assert_equal Movie.count, rows
+end

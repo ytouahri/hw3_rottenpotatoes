@@ -23,7 +23,7 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
-  Given I check the following ratings: PG, R
+  When I check the following ratings: PG, R
   # enter step(s) to uncheck all other checkboxes
   And I uncheck the following ratings: G, PG-13, NC-17
   # enter step to "submit" the search form on the homepage
@@ -44,3 +44,6 @@ Scenario: no ratings selected
 
 Scenario: all ratings selected
   # see assignment
+  When I check all ratings
+  And I press "Refresh"
+  Then I should see all of the movies
