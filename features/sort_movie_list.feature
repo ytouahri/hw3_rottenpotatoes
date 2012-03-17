@@ -23,7 +23,17 @@ Background: movies have been added to database
 
 Scenario: sort movies alphabetically
   # your steps here
+  # TODO Should check only some also
+  When I check all ratings
+  And I press "Refresh"
+  When I follow "Movie Title"
+  Then I should see all of the movies
+  And movies are sorted alphabetically
 
 Scenario: sort movies in increasing order of release date
   # your steps here
-
+  When I check all ratings
+  And I press "Refresh"
+  When I follow "Release Date"
+  Then I should see all of the movies
+  And movies are sorted by release date

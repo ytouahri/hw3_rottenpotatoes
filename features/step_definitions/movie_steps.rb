@@ -14,7 +14,7 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  assert false, "Unimplmemented"
+  page.body.match(/#{e1}.*?#{e2}/)
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -45,4 +45,27 @@ Then /I should see all of the movies/ do
   # Fall back to using MiniTest assertion
   #rows.should == Movie.count
   assert_equal Movie.count, rows
+end
+
+Then /movies are sorted alphabetically/ do
+  titles = all("table#movies > tbody > tr > td:nth-child(1)").map {
+    |element|
+    element.text
+  }
+
+  # Inefficient but works.
+  # Note string compare is what we want.
+  assert_equal titles, titles.sort
+end
+
+Then /movies are sorted by release date/ do
+  dates = all("table#movies > tbody > tr > td:nth-child(3)").map {
+    |element|
+    element.text
+  }
+
+  # Inefficient but works.
+  # Note string compare works for standard representation of date as
+  # 1992-11-25 00:00:00 UTC
+  assert_equal dates, dates.sort
 end
